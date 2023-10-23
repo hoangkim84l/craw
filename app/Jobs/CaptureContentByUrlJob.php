@@ -2,8 +2,10 @@
 
 namespace App\Jobs;
 
+use App\Models\Chapter;
 use App\Models\LinkChapter;
 use App\Models\LinkTruyen;
+use App\Models\Story;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldBeUnique;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -55,13 +57,21 @@ class CaptureContentByUrlJob implements ShouldQueue, ShouldBeUnique
                     }
 
                     // FIND STORY
-                    $story = '';
+                    $story = Story::where()->first();
                     if (!$story) {
                         $data->update(['status' => LinkTruyen::STATUS_NOT_FOUND]);
                         continue;
                     }
 
-                    // INSEARCH CONTENT CHAPTER
+                    // INSERT CONTENT CHAPTER
+                    Chapter::updateOrCreate(
+                        [
+                            'name' => $name,
+                            'link' => $attribute,
+                            'status' => LinkChapter::STATUS_PENDING,
+                            'source' => ltrim($title, " "),
+                        ]
+                    );
 
                     // UPDATE STATUS AFTER CRAW
                     $data->update(['status' => LinkTruyen::STATUS_DONE]);
