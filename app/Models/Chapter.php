@@ -30,6 +30,8 @@ class Chapter extends Model
         'status',
         'view',
         'author',
+        'ordering',
+        'created',
     ];
 
     /**

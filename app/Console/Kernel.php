@@ -17,7 +17,7 @@ class Kernel extends ConsoleKernel
         $schedule->command(CaptureLinksChapterCommand::class)->daily();
         /**
          * chay command vào 5 giờ chiều mỗi 2 ngày
-         *  crontab -e && cd /path-to-your-project && php artisan schedule:run >> /dev/null 2>&1
+         * crontab -e && cd /path-to-your-project && php artisan schedule:run >> /dev/null 2>&1
          * */
         $schedule->command(CaptureContentChapterCommand::class)->cron('0 17 */2 * *');
     }
