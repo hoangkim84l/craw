@@ -8,7 +8,7 @@ use App\Models\LinkTruyen;
 use Goutte\Client;
 use Illuminate\Http\Request;
 
-class TruyenFullController extends Controller
+class DTruyenController extends Controller
 {
     public function storeNewLinks(Request $request)
     {
@@ -17,7 +17,7 @@ class TruyenFullController extends Controller
         foreach ($data['urls'] as $url) {
             $client = new Client();
             $crawler = $client->request('GET', $url);
-            $title = $crawler->filter('h3.title')->each(function ($node) {
+            $title = $crawler->filter('h1.title')->each(function ($node) {
                 return $node->text();
             })[0];
 
@@ -30,7 +30,7 @@ class TruyenFullController extends Controller
                     'name' => ltrim($title, " "),
                     'link' => $url,
                     'status' => LinkTruyen::STATUS_PROCESS,
-                    'type' => LinkTruyen::TYPE_TF,
+                    'type' => LinkTruyen::TYPE_DT,
                 ]
             );
         }
@@ -47,14 +47,14 @@ class TruyenFullController extends Controller
         foreach ($data['urls'] as $url) {
             $client = new Client();
             $crawler = $client->request('GET', $url);
-            $title = $crawler->filter('h3.title')->each(function ($node) {
+            $title = $crawler->filter('h1.title')->each(function ($node) {
                 return $node->text();
             })[0];
-    
+
             $title = strtolower($title);
             $title = ucfirst($title);
-
-            $crawler->filterXPath("//ul[@class='list-chapter']//a")->each(function ($node) use($title) {
+    
+            $crawler->filterXPath("//div[@id='chapters']//a")->each(function ($node) use($title) {
                 /** @var Crawler $node */
                 LinkChapter::updateOrCreate(
                     [
@@ -62,7 +62,7 @@ class TruyenFullController extends Controller
                         'link' => $node->attr('href'),
                         'status' => LinkChapter::STATUS_PENDING,
                         'source' => ltrim($title, " "),
-                        'type' => LinkTruyen::TYPE_TF,
+                        'type' => LinkTruyen::TYPE_DT,
                     ]
                 );
             });
@@ -98,12 +98,11 @@ class TruyenFullController extends Controller
         $title = $crawler->filter('title')->each(function ($node) {
             return $node->text();
         })[0];
-        
+
         $title = strtolower($title);
         $title = ucfirst($title);
 
-
-        $content = $crawler->filterXPath("//div[@id='chapter-c']")->each(function ($node) {
+        $content = $crawler->filterXPath("//div[@id='chapter']//div[@id='chapter-content']")->each(function ($node) {
             /** @var Crawler $node */
             return $node->text();
         });
@@ -111,7 +110,7 @@ class TruyenFullController extends Controller
         return response()->json([
             'status' => 'success',
             'title' => ltrim($title, " "),
-            'content' => str_replace('truyenfull.com', 'cafesuanovel.com', $content),
+            'content' => str_replace('dtruyen.com', 'cafesuanovel.com', $content),
         ]);
     }
 }

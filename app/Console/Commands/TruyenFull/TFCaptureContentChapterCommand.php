@@ -1,25 +1,25 @@
 <?php
 
-namespace App\Console\Commands;
+namespace App\Console\Commands\TruyenFull;
 
-use App\Jobs\CaptureLinkChapterJob;
+use App\Jobs\TruyenFull\TFCaptureContentByUrlJob;
 use Illuminate\Console\Command;
 
-class CaptureLinksChapterCommand extends Command
+class TFCaptureContentChapterCommand extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'cfn-crawler:capture_link_chapter';
+    protected $signature = 'cfn-crawler:capture_content_chapter';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Craw link chapter';
+    protected $description = 'Craw content';
 
     /**
      * Execute the console command.
@@ -28,6 +28,6 @@ class CaptureLinksChapterCommand extends Command
      */
     public function handle()
     {
-        CaptureLinkChapterJob::dispatch();
+        TFCaptureContentByUrlJob::dispatch();
     }
 }

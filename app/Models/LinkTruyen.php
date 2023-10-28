@@ -13,6 +13,9 @@ class LinkTruyen extends Model
     public const STATUS_DONE = 'DONE';
     public const STATUS_NOT_FOUND = 'TITLE CHANGE, CAN NOT FIND THE ORG STORY';
 
+    public const TYPE_TF = 'TF';
+    public const TYPE_DT = 'DT';
+
     /**
      * The attributes that are mass assignable.
      *
@@ -22,6 +25,7 @@ class LinkTruyen extends Model
         'name',
         'link',
         'status',
+        'type',
     ];
 
     /**

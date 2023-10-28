@@ -21,7 +21,8 @@ class LinkChapter extends Model
         'name',
         'link',
         'status',
-        'source'
+        'source',
+        'type',
     ];
 
     /**

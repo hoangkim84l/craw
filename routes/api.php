@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\DTruyenController;
 use App\Http\Controllers\Api\TruyenFullController;
 use Illuminate\Support\Facades\Route;
 
@@ -18,10 +19,18 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware('throttle:api')
     ->group(function () {
-        Route::post('/craw-new-story', [TruyenFullController::class, 'storeNewLinks']);
-        Route::post('/craw-link-chapters', [TruyenFullController::class, 'getLinkChapters']);
-        Route::post('/craw-content-chapter', [TruyenFullController::class, 'getContentChapter']);
-
+        // CRAWL TRUYENFULL
+        Route::prefix('tf')->group(function () {
+            Route::post('/craw-new-story', [TruyenFullController::class, 'storeNewLinks']);
+            Route::post('/craw-link-chapters', [TruyenFullController::class, 'getLinkChapters']);
+            Route::post('/craw-content-chapter', [TruyenFullController::class, 'getContentChapter']);
+        });
+        //CRAWL DTRUYEN
+        Route::prefix('dt')->group(function () {
+            Route::post('/craw-new-story', [DTruyenController::class, 'storeNewLinks']);
+            Route::post('/craw-link-chapters', [DTruyenController::class, 'getLinkChapters']);
+            Route::post('/craw-content-chapter', [DTruyenController::class, 'getContentChapter']);
+        });
 });
 
 // PRIVATE ROUTES ----------------------------------------------------

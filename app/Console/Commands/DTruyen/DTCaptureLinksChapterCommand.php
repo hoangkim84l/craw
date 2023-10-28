@@ -1,25 +1,25 @@
 <?php
 
-namespace App\Console\Commands;
+namespace App\Console\Commands\DTruyen;
 
-use App\Jobs\CaptureContentByUrlJob;
+use App\Jobs\Dtruyen\DTCaptureLinkChapterJob;
 use Illuminate\Console\Command;
 
-class CaptureContentChapterCommand extends Command
+class DTCaptureLinksChapterCommand extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'cfn-crawler:capture_content_chapter';
+    protected $signature = 'cfn-crawler:capture_link_chapter';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Craw content';
+    protected $description = 'Craw link chapter';
 
     /**
      * Execute the console command.
@@ -28,6 +28,6 @@ class CaptureContentChapterCommand extends Command
      */
     public function handle()
     {
-        CaptureContentByUrlJob::dispatch();
+        DTCaptureLinkChapterJob::dispatch();
     }
 }

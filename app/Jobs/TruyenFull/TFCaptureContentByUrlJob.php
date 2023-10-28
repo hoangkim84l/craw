@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Jobs;
+namespace App\Jobs\TruyenFull;
 
 use App\Models\Chapter;
 use App\Models\LinkChapter;
@@ -15,7 +15,7 @@ use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Str;
 
-class CaptureContentByUrlJob implements ShouldQueue, ShouldBeUnique
+class TFCaptureContentByUrlJob implements ShouldQueue, ShouldBeUnique
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
@@ -47,10 +47,11 @@ class CaptureContentByUrlJob implements ShouldQueue, ShouldBeUnique
      */
     public function handle()
     {
-        $client = new Client();
         LinkChapter::where('status', LinkChapter::STATUS_PENDING)
-            ->chunkById(1000, function ($records) use($client){
-                foreach ($records as $data) {
+            ->where('type', LinkTruyen::TYPE_TF)
+            ->chunkById(1000, function ($records) {
+            foreach ($records as $data) {
+                    $client = new Client();
                     $crawler = $client->request('GET', $data->link);
                     $title = $crawler->filter('title')->each(function ($node) {
                         return $node->text();
@@ -68,15 +69,19 @@ class CaptureContentByUrlJob implements ShouldQueue, ShouldBeUnique
                         continue;
                     }
 
+                    $title = strtolower($title);
+                    $title = ucfirst($title);
+                    $title =ltrim($title, " ");
+
                     // INSERT CONTENT CHAPTER
                     Chapter::updateOrCreate(
-                        ['name' => ltrim($title, " ")],
+                        ['name' => $title],
                         [
-                            'name' => ltrim($title, " "),
+                            'name' => $title,
                             'slug' => Str::slug($title),
-                            'site_title' => 'Đọc truyện' . $data->source . ' - ' . ltrim($title, " ") . 'Tiếng Việt tại website cafesuanovel.com',
-                            'meta_desc' => 'Đọc truyện' . $data->source . ' - ' . ltrim($title, " ") . 'Tiếng Việt tại website cafesuanovel.com',
-                            'meta_key' => 'Đọc truyện' . $data->source . ' - ' . ltrim($title, " ") . 'Tiếng Việt tại website cafesuanovel.com',
+                            'site_title' => 'Đọc truyện online, truyện mới cập nhật, Đọc truyện' . $data->source . ' - ' . $title . 'Tiếng Việt tại website cafesuanovel.com',
+                            'meta_desc' => 'Đọc truyện online, truyện mới cập nhật, Đọc truyện' . $data->source . ' - ' . $title . 'Tiếng Việt tại website cafesuanovel.com',
+                            'meta_key' => 'Đọc truyện online, truyện mới cập nhật, Đọc truyện' . $data->source . ' - ' . $title . 'Tiếng Việt tại website cafesuanovel.com',
                             'story_id' => $story->id,
                             'image_link' => '',
                             'audio_link' => '',

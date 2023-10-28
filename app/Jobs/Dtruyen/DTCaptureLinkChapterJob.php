@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Jobs;
+namespace App\Jobs\Dtruyen;
 
 use App\Models\LinkChapter;
 use App\Models\LinkTruyen;
@@ -12,7 +12,7 @@ use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 
-class CaptureLinkChapterJob implements ShouldQueue, ShouldBeUnique
+class DTCaptureLinkChapterJob implements ShouldQueue, ShouldBeUnique
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
@@ -45,16 +45,20 @@ class CaptureLinkChapterJob implements ShouldQueue, ShouldBeUnique
     public function handle()
     {
         LinkTruyen::where('status', LinkTruyen::STATUS_PROCESS)
+            ->where('type', LinkTruyen::TYPE_DT)
             ->chunkById(1000, function ($records) {
                 foreach ($records as $data) {
                     // link story
                     $client = new Client();
                     $crawler = $client->request('GET', $data->link);
-                    $title = $crawler->filter('title')->each(function ($node) {
+                    $title = $crawler->filter('h1.title')->each(function ($node) {
                         return $node->text();
                     })[0];
-
-                    $crawler->filterXPath("//ul[@class='list-chapter']//a")->each(function ($node) use($title) {
+        
+                    $title = strtolower($title);
+                    $title = ucfirst($title);
+            
+                    $crawler->filterXPath("//div[@id='chapters']//a")->each(function ($node) use($title) {
                         /** @var Crawler $node */
                         LinkChapter::updateOrCreate(
                             [
