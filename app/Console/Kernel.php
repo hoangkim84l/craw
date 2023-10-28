@@ -14,6 +14,7 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule): void
     {
+        // config server /usr/bin/php /home/u59xx/domains/cfn.com/public_html/cfn-crawler/artisan schedule:run
         $schedule->command(CaptureLinksChapterCommand::class)->daily();
         $schedule->command(CaptureContentChapterCommand::class)->daily();
     }
