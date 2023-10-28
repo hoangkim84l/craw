@@ -4,6 +4,7 @@ namespace App\Jobs;
 
 use App\Models\LinkChapter;
 use App\Models\LinkTruyen;
+use Goutte\Client;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldBeUnique;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -46,24 +47,24 @@ class CaptureLinkChapterJob implements ShouldQueue, ShouldBeUnique
         LinkTruyen::where('status', LinkTruyen::STATUS_PROCESS)
             ->chunkById(1000, function ($records) {
                 foreach ($records as $data) {
-                    $source = file_get_contents($data['url']);
-                    $xml = simplexml_load_string($source);
-                    $links = $xml->xpath("//ul[@class='list-chapter']//a");
-                    $title = $xml->head->title;
+                    // link story
+                    $client = new Client();
+                    $crawler = $client->request('GET', $data->link);
+                    $title = $crawler->filter('title')->each(function ($node) {
+                        return $node->text();
+                    })[0];
 
-                    foreach ($links as $link) {
-                        $attribute = $link->attributes()->href;
-                        $name = $link->__toString();
-
+                    $crawler->filterXPath("//ul[@class='list-chapter']//a")->each(function ($node) use($title) {
+                        /** @var Crawler $node */
                         LinkChapter::updateOrCreate(
                             [
-                                'name' => $name,
-                                'link' => $attribute,
+                                'name' => $node->text(),
+                                'link' => $node->attr('href'),
                                 'status' => LinkChapter::STATUS_PENDING,
                                 'source' => ltrim($title, " "),
                             ]
                         );
-                    }
+                    });
                 }
             });
     }

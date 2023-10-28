@@ -6,6 +6,7 @@ use App\Models\Chapter;
 use App\Models\LinkChapter;
 use App\Models\LinkTruyen;
 use App\Models\Story;
+use Goutte\Client;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldBeUnique;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -46,17 +47,19 @@ class CaptureContentByUrlJob implements ShouldQueue, ShouldBeUnique
      */
     public function handle()
     {
+        $client = new Client();
         LinkChapter::where('status', LinkChapter::STATUS_PENDING)
-            ->chunkById(1000, function ($records) {
+            ->chunkById(1000, function ($records) use($client){
                 foreach ($records as $data) {
-                    $source = file_get_contents($data->url);
-                    $xml = simplexml_load_string($source);
-                    $title = $xml->head->title;
-                    $chapter = $xml->xpath("//div[@id='chapter-c']");
-                    $content = '';
-                    foreach ($chapter as $value) {
-                        $content .= $value->__toString() . '<br/>';
-                    }
+                    $crawler = $client->request('GET', $data->link);
+                    $title = $crawler->filter('title')->each(function ($node) {
+                        return $node->text();
+                    })[0];
+
+                    $content = $crawler->filterXPath("//div[@id='chapter-c']")->each(function ($node) {
+                        /** @var Crawler $node */
+                        return $node->text();
+                    });
 
                     // FIND STORY
                     $story = Story::where('name', 'like',  '%' . $data->source . '%')->first();
@@ -78,7 +81,7 @@ class CaptureContentByUrlJob implements ShouldQueue, ShouldBeUnique
                             'image_link' => '',
                             'audio_link' => '',
                             'show_img' => 0,
-                            'content' => $content,
+                            'content' => str_replace('truyenfull.com', 'cafesuanovel.com', $content),
                             'status' => 1 ,
                             'view' => 0,
                             'author' => 'System',

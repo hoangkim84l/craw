@@ -15,15 +15,19 @@ use Illuminate\Support\Facades\Route;
 */
 
 // PUBLIC ROUTES ----------------------------------------------------
+
 Route::middleware('throttle:api')
     ->group(function () {
-        // Route::post('/sso/microsoft/authorize', [MicrosoftController::class, 'ssoAuthorize']);
-    });
+        Route::post('/craw-new-story', [TruyenFullController::class, 'storeNewLinks']);
+        Route::post('/craw-link-chapters', [TruyenFullController::class, 'getLinkChapters']);
+        Route::post('/craw-content-chapter', [TruyenFullController::class, 'getContentChapter']);
+
+});
 
 // PRIVATE ROUTES ----------------------------------------------------
-Route::middleware(['auth:user_account, auth:sanctum'])
-    ->group(function () {
-        Route::post('/craw-new-story', [TruyenFullController::class, 'storeNewLinks']);
-        Route::post('/craw-link-chapter', [TruyenFullController::class, 'getLinkChapters']);
-        Route::post('/update-status-story-to-done', [TruyenFullController::class, 'updateStatusStoryToDone']);
-    });
+// Route::middleware(['auth:user_account, auth:sanctum'])
+//     ->group(function () {
+//         Route::post('/craw-new-story', [TruyenFullController::class, 'storeNewLinks']);
+//         Route::post('/craw-link-chapter', [TruyenFullController::class, 'getLinkChapters']);
+//         Route::post('/update-status-story-to-done', [TruyenFullController::class, 'updateStatusStoryToDone']);
+//     });
