@@ -108,6 +108,7 @@ class TruyenFullController extends Controller
             return $node->text();
         });
 
+        $content = $content[0];
         return response()->json([
             'status' => 'success',
             'title' => ltrim($title, " "),

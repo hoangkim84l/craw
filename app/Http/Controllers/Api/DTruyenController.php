@@ -106,6 +106,7 @@ class DTruyenController extends Controller
             /** @var Crawler $node */
             return $node->text();
         });
+        $content = $content[0];
 
         return response()->json([
             'status' => 'success',

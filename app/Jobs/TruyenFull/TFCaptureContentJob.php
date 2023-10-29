@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Jobs\Dtruyen;
+namespace App\Jobs\TruyenFull;
 
 use App\Models\Chapter;
 use App\Models\LinkChapter;
@@ -13,9 +13,10 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
 
-class DTCaptureContentByUrlJob implements ShouldQueue, ShouldBeUnique
+class TFCaptureContentJob implements ShouldQueue, ShouldBeUnique
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
@@ -36,7 +37,7 @@ class DTCaptureContentByUrlJob implements ShouldQueue, ShouldBeUnique
     public function tags(): array
     {
         return [
-            'capture_content_by_url_job'
+            'truyenfull_capture_content_job'
         ];
     }
 
@@ -47,40 +48,39 @@ class DTCaptureContentByUrlJob implements ShouldQueue, ShouldBeUnique
      */
     public function handle()
     {
-        $client = new Client();
         LinkChapter::where('status', LinkChapter::STATUS_PENDING)
-            ->where('type', LinkTruyen::TYPE_DT)
-            ->chunkById(1000, function ($records) use($client){
-                foreach ($records as $data) {
+            ->where('type', LinkTruyen::TYPE_TF)
+            ->chunkById(1000, function ($records) {
+            foreach ($records as $data) {
+                    $client = new Client();
                     $crawler = $client->request('GET', $data->link);
                     $title = $crawler->filter('title')->each(function ($node) {
                         return $node->text();
                     })[0];
-            
-                    $title = strtolower($title);
-                    $title = ucfirst($title);
-            
-                    $content = $crawler->filterXPath("//div[@id='chapter']//div[@id='chapter-content']")->each(function ($node) {
+
+                    $content = $crawler->filterXPath("//div[@id='chapter-c']")->each(function ($node) {
                         /** @var Crawler $node */
                         return $node->text();
                     });
-
-                    $title = strtolower($title);
-                    $title = ucfirst($title);
-                    $title = ltrim($title, " ");
-
+                    
                     // FIND STORY
                     $story = Story::where('name', 'like',  '%' . $data->source . '%')->first();
                     if (!$story) {
                         $data->update(['status' => LinkTruyen::STATUS_NOT_FOUND]);
+                        Log::info('Do not have story id');
                         continue;
                     }
+                    
+                    Log::info('After have story id');
+                    $title = strtolower($title);
+                    $title = ucfirst($title);
+                    $title = ltrim($title, " ");
+                    $content = $content[0];
 
                     // INSERT CONTENT CHAPTER
                     Chapter::updateOrCreate(
                         ['name' => $title],
                         [
-                            'name' => $title,
                             'slug' => Str::slug($title),
                             'site_title' => 'Đọc truyện online, truyện mới cập nhật, Đọc truyện' . $data->source . ' - ' . $title . 'Tiếng Việt tại website cafesuanovel.com',
                             'meta_desc' => 'Đọc truyện online, truyện mới cập nhật, Đọc truyện' . $data->source . ' - ' . $title . 'Tiếng Việt tại website cafesuanovel.com',

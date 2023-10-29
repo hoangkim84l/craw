@@ -2,10 +2,10 @@
 
 namespace App\Console\Commands\DTruyen;
 
-use App\Jobs\Dtruyen\DTCaptureContentByUrlJob;
+use App\Jobs\Dtruyen\DTCaptureContentJob;
 use Illuminate\Console\Command;
 
-class DTCaptureContentChapterCommand extends Command
+class DtCaptureContentChapterCommand extends Command
 {
     /**
      * The name and signature of the console command.
@@ -19,7 +19,7 @@ class DTCaptureContentChapterCommand extends Command
      *
      * @var string
      */
-    protected $description = 'Craw content';
+    protected $description = 'DT Craw content';
 
     /**
      * Execute the console command.
@@ -28,6 +28,6 @@ class DTCaptureContentChapterCommand extends Command
      */
     public function handle()
     {
-        DTCaptureContentByUrlJob::dispatch();
+        DTCaptureContentJob::dispatch();
     }
 }

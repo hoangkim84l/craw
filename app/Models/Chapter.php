@@ -9,7 +9,7 @@ class Chapter extends Model
 {
     use HasFactory;
 
-    protected $table = "chapters";
+    protected $table = 'chapters';
 
     /**
      * The attributes that are mass assignable.
@@ -33,6 +33,8 @@ class Chapter extends Model
         'ordering',
         'created',
     ];
+
+    public $timestamps = true;
 
     /**
      * The attributes that should be hidden for serialization.

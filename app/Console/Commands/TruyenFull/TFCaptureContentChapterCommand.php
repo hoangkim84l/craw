@@ -2,10 +2,10 @@
 
 namespace App\Console\Commands\TruyenFull;
 
-use App\Jobs\TruyenFull\TFCaptureContentByUrlJob;
+use App\Jobs\TruyenFull\TFCaptureContentJob;
 use Illuminate\Console\Command;
 
-class TFCaptureContentChapterCommand extends Command
+class TfCaptureContentChapterCommand extends Command
 {
     /**
      * The name and signature of the console command.
@@ -19,7 +19,7 @@ class TFCaptureContentChapterCommand extends Command
      *
      * @var string
      */
-    protected $description = 'Craw content';
+    protected $description = 'TF Craw content';
 
     /**
      * Execute the console command.
@@ -28,6 +28,6 @@ class TFCaptureContentChapterCommand extends Command
      */
     public function handle()
     {
-        TFCaptureContentByUrlJob::dispatch();
+        TFCaptureContentJob::dispatch();
     }
 }
