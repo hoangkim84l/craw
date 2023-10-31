@@ -2,6 +2,7 @@
 
 namespace App\Console;
 
+use App\Console\Commands\CleanUpDataCommand;
 use App\Console\Commands\DTruyen\DtCaptureContentChapterCommand;
 use App\Console\Commands\DTruyen\DTCaptureLinksChapterCommand;
 use App\Console\Commands\TruyenFull\TfCaptureContentChapterCommand;
@@ -24,6 +25,8 @@ class Kernel extends ConsoleKernel
         // DTruyen site
         $schedule->command(DTCaptureLinksChapterCommand::class)->daily();
         $schedule->command(DtCaptureContentChapterCommand::class)->daily();
+
+        $schedule->command(CleanUpDataCommand::class)->weekly();
     }
 
     /**
