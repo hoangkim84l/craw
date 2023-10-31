@@ -19,11 +19,11 @@ class Kernel extends ConsoleKernel
         // config server /usr/bin/php /home/u59xx/domains/cfn.com/public_html/cfn-crawler/artisan schedule:run
         // TruyenFull site
         $schedule->command(TFCaptureLinksChapterCommand::class)->daily();
-        $schedule->command(TfCaptureContentChapterCommand::class)->everyMinute();
+        $schedule->command(TfCaptureContentChapterCommand::class)->daily();
 
         // DTruyen site
         $schedule->command(DTCaptureLinksChapterCommand::class)->daily();
-        $schedule->command(DtCaptureContentChapterCommand::class)->everyMinute();
+        $schedule->command(DtCaptureContentChapterCommand::class)->daily();
     }
 
     /**

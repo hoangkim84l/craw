@@ -51,7 +51,7 @@ class TFCaptureContentJob implements ShouldQueue, ShouldBeUnique
         LinkChapter::where('status', LinkChapter::STATUS_PENDING)
             ->where('type', LinkTruyen::TYPE_TF)
             ->chunkById(1000, function ($records) {
-            foreach ($records as $data) {
+                foreach ($records as $data) {
                     $client = new Client();
                     $crawler = $client->request('GET', $data->link);
                     $title = $crawler->filter('title')->each(function ($node) {
@@ -62,41 +62,44 @@ class TFCaptureContentJob implements ShouldQueue, ShouldBeUnique
                         /** @var Crawler $node */
                         return $node->text();
                     });
-                    
-                    // FIND STORY
-                    $story = Story::where('name', 'like',  '%' . $data->source . '%')->first();
-                    if (!$story) {
-                        $data->update(['status' => LinkTruyen::STATUS_NOT_FOUND]);
-                        Log::info('Do not have story id');
-                        continue;
-                    }
-                    
-                    Log::info('After have story id');
-                    $title = strtolower($title);
-                    $title = ucfirst($title);
-                    $title = ltrim($title, " ");
-                    $content = $content[0];
 
-                    // INSERT CONTENT CHAPTER
-                    Chapter::updateOrCreate(
-                        ['name' => $title],
-                        [
-                            'slug' => Str::slug($title),
-                            'site_title' => 'Đọc truyện online, truyện mới cập nhật, Đọc truyện' . $data->source . ' - ' . $title . 'Tiếng Việt tại website cafesuanovel.com',
-                            'meta_desc' => 'Đọc truyện online, truyện mới cập nhật, Đọc truyện' . $data->source . ' - ' . $title . 'Tiếng Việt tại website cafesuanovel.com',
-                            'meta_key' => 'Đọc truyện online, truyện mới cập nhật, Đọc truyện' . $data->source . ' - ' . $title . 'Tiếng Việt tại website cafesuanovel.com',
-                            'story_id' => $story->id,
-                            'image_link' => '',
-                            'audio_link' => '',
-                            'show_img' => 0,
-                            'content' => str_replace('truyenfull.com', 'cafesuanovel.com', $content),
-                            'status' => 1 ,
-                            'view' => 0,
-                            'author' => 'System',
-                            'ordering' => 1,
-                            'created' => date("Y-m-d H:i:s"),
-                        ]
-                    );
+                    if ($content) {
+                        // FIND STORY
+                        $story = Story::where('name', 'like',  '%' . $data->source . '%')->first();
+                        if (!$story) {
+                            $data->update(['status' => LinkTruyen::STATUS_NOT_FOUND]);
+                            Log::info('Do not have story id');
+                            continue;
+                        }
+
+                        Log::info('After have story id');
+                        $title = strtolower($title);
+                        $title = ucfirst($title);
+                        $title = ltrim($title, " ");
+
+                        $content = $content[0];
+
+                        // INSERT CONTENT CHAPTER
+                        Chapter::updateOrCreate(
+                            ['name' => $title],
+                            [
+                                'slug' => Str::slug($title),
+                                'site_title' => 'Đọc truyện online, truyện mới cập nhật, Đọc truyện' . $data->source . ' - ' . $title . 'Tiếng Việt tại website cafesuanovel.com',
+                                'meta_desc' => 'Đọc truyện online, truyện mới cập nhật, Đọc truyện' . $data->source . ' - ' . $title . 'Tiếng Việt tại website cafesuanovel.com',
+                                'meta_key' => 'Đọc truyện online, truyện mới cập nhật, Đọc truyện' . $data->source . ' - ' . $title . 'Tiếng Việt tại website cafesuanovel.com',
+                                'story_id' => $story->id,
+                                'image_link' => '',
+                                'audio_link' => '',
+                                'show_img' => 0,
+                                'content' => str_replace('truyenfull.com', 'cafesuanovel.com', $content),
+                                'status' => 1,
+                                'view' => 0,
+                                'author' => 'System',
+                                'ordering' => 1,
+                                'created' => date("Y-m-d H:i:s"),
+                            ]
+                        );
+                    }
 
                     // UPDATE STATUS AFTER CRAW
                     $data->update(['status' => LinkTruyen::STATUS_DONE]);

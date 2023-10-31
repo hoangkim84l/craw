@@ -12,14 +12,14 @@ class TfCaptureContentChapterCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'cfn-crawler:capture_content_chapter';
+    protected $signature = 'cfn-crawler:tf_capture_content_chapter';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'TF Craw content';
+    protected $description = 'TF Craw content - come v2';
 
     /**
      * Execute the console command.
