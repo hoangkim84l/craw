@@ -57,6 +57,7 @@ class TruyenFullController extends Controller
             $crawler->filterXPath("//ul[@class='list-chapter']//a")->each(function ($node) use($title) {
                 /** @var Crawler $node */
                 LinkChapter::updateOrCreate(
+                    ['link' => $node->attr('href')],
                     [
                         'name' => $node->text(),
                         'link' => $node->attr('href'),
