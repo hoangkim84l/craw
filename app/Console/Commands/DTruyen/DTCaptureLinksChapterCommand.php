@@ -12,7 +12,7 @@ class DTCaptureLinksChapterCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'cfn-crawler:capture_link_chapter';
+    protected $signature = 'cfn-crawler:dt_capture_link_chapter';
 
     /**
      * The console command description.

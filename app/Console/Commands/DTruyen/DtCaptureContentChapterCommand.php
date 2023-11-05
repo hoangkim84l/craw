@@ -12,7 +12,7 @@ class DtCaptureContentChapterCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'cfn-crawler:capture_content_chapter';
+    protected $signature = 'cfn-crawler:dt_capture_content_chapter';
 
     /**
      * The console command description.

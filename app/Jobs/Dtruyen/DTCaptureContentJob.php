@@ -54,7 +54,7 @@ class DTCaptureContentJob implements ShouldQueue, ShouldBeUnique
             ->chunkById(1000, function ($records) use ($client) {
                 foreach ($records as $data) {
                     $crawler = $client->request('GET', $data->link);
-                    $title = $crawler->filter('title')->each(function ($node) {
+                    $title = $crawler->filterXPath("//p[@class='story-title']//a")->each(function ($node) {
                         return $node->text();
                     })[0];
 

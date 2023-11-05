@@ -54,7 +54,7 @@ class TFCaptureContentJob implements ShouldQueue, ShouldBeUnique
                 foreach ($records as $data) {
                     $client = new Client();
                     $crawler = $client->request('GET', $data->link);
-                    $title = $crawler->filter('title')->each(function ($node) {
+                    $title = $crawler->filterXPath("//a[@class='truyen-title']")->each(function ($node) {
                         return $node->text();
                     })[0];
 
