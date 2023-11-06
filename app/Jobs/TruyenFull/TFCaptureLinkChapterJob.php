@@ -51,14 +51,17 @@ class TFCaptureLinkChapterJob implements ShouldQueue, ShouldBeUnique
                     // link story
                     $client = new Client();
                     $crawler = $client->request('GET', $data->link);
-                    $title = $crawler->filter('title')->each(function ($node) {
+                    $title = $crawler->filter('h3.title')->each(function ($node) {
                         return $node->text();
                     })[0];
 
-                    $crawler->filterXPath("//ul[@class='list-chapter']//a")->each(function ($node) use($title) {
+                    $title = strtolower($title);
+                    $title = ucfirst($title);
+
+                    $crawler->filterXPath("//ul[@class='list-chapter']//a")->each(function ($node) use ($title) {
                         /** @var Crawler $node */
                         LinkChapter::updateOrCreate(
-                            [ 'link' => $node->attr('href')],
+                            ['link' => $node->attr('href')],
                             [
                                 'name' => $node->text(),
                                 'link' => $node->attr('href'),

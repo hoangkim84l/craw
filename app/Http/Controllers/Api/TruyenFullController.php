@@ -23,7 +23,7 @@ class TruyenFullController extends Controller
 
             $title = strtolower($title);
             $title = ucfirst($title);
-    
+
             LinkTruyen::updateOrCreate(
                 ['link' => $url],
                 [
@@ -50,7 +50,7 @@ class TruyenFullController extends Controller
             $title = $crawler->filter('h3.title')->each(function ($node) {
                 return $node->text();
             })[0];
-    
+
             $title = strtolower($title);
             $title = ucfirst($title);
 
@@ -96,10 +96,10 @@ class TruyenFullController extends Controller
         $data = $request->validate(['url' => 'required']);
         $client = new Client();
         $crawler = $client->request('GET', $data['url']);
-        $title = $crawler->filter('title')->each(function ($node) {
+        $title = $crawler->filter('a.chapter-title')->each(function ($node) {
             return $node->text();
         })[0];
-        
+
         $title = strtolower($title);
         $title = ucfirst($title);
 

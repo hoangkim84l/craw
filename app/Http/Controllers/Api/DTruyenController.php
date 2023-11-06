@@ -23,7 +23,7 @@ class DTruyenController extends Controller
 
             $title = strtolower($title);
             $title = ucfirst($title);
-    
+
             LinkTruyen::updateOrCreate(
                 ['link' => $url],
                 [
@@ -53,8 +53,8 @@ class DTruyenController extends Controller
 
             $title = strtolower($title);
             $title = ucfirst($title);
-    
-            $crawler->filterXPath("//div[@id='chapters']//a")->each(function ($node) use($title) {
+
+            $crawler->filterXPath("//div[@id='chapters']//a")->each(function ($node) use ($title) {
                 /** @var Crawler $node */
                 LinkChapter::updateOrCreate(
                     ['link' => $node->attr('href')],
@@ -96,7 +96,7 @@ class DTruyenController extends Controller
         $data = $request->validate(['url' => 'required']);
         $client = new Client();
         $crawler = $client->request('GET', $data['url']);
-        $title = $crawler->filter('title')->each(function ($node) {
+        $title = $crawler->filter('h2.chapter-title')->each(function ($node) {
             return $node->text();
         })[0];
 
