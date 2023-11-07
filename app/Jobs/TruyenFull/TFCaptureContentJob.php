@@ -60,7 +60,17 @@ class TFCaptureContentJob implements ShouldQueue, ShouldBeUnique
 
                     $content = $crawler->filterXPath("//div[@id='chapter-c']")->each(function ($node) {
                         /** @var Crawler $node */
-                        return $node->text();
+                        $node->filter('div.ads')->each(function ($adNode) {
+                            // Loại bỏ các thẻ div có class "ads" khỏi nút cha
+                            $adNode->getNode(0)->parentNode->removeChild($adNode->getNode(0));
+                        });
+
+                        $node->filter('script')->each(function ($adNode) {
+                            // Loại bỏ các thẻ script khỏi nút cha
+                            $adNode->getNode(0)->parentNode->removeChild($adNode->getNode(0));
+                        });
+
+                        return $node->html();
                     });
 
                     if ($content) {

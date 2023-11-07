@@ -105,7 +105,12 @@ class DTruyenController extends Controller
 
         $content = $crawler->filterXPath("//div[@id='chapter']//div[@id='chapter-content']")->each(function ($node) {
             /** @var Crawler $node */
-            return $node->text();
+            $node->filter('script')->each(function ($adNode) {
+                // Loại bỏ các thẻ script khỏi nút cha
+                $adNode->getNode(0)->parentNode->removeChild($adNode->getNode(0));
+            });
+
+            return $node->html();
         });
         $content = $content[0];
 

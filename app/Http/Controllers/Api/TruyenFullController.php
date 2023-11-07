@@ -54,7 +54,7 @@ class TruyenFullController extends Controller
             $title = strtolower($title);
             $title = ucfirst($title);
 
-            $crawler->filterXPath("//ul[@class='list-chapter']//a")->each(function ($node) use($title) {
+            $crawler->filterXPath("//ul[@class='list-chapter']//a")->each(function ($node) use ($title) {
                 /** @var Crawler $node */
                 LinkChapter::updateOrCreate(
                     ['link' => $node->attr('href')],
@@ -103,10 +103,19 @@ class TruyenFullController extends Controller
         $title = strtolower($title);
         $title = ucfirst($title);
 
-
         $content = $crawler->filterXPath("//div[@id='chapter-c']")->each(function ($node) {
             /** @var Crawler $node */
-            return $node->text();
+            $node->filter('div.ads')->each(function ($adNode) {
+                // Loại bỏ các thẻ div có class "ads" khỏi nút cha
+                $adNode->getNode(0)->parentNode->removeChild($adNode->getNode(0));
+            });
+
+            $node->filter('script')->each(function ($adNode) {
+                // Loại bỏ các thẻ script khỏi nút cha
+                $adNode->getNode(0)->parentNode->removeChild($adNode->getNode(0));
+            });
+
+            return $node->html();
         });
 
         $content = $content[0];
