@@ -75,7 +75,7 @@ class DTCaptureContentJob implements ShouldQueue, ShouldBeUnique
                             $data->update(['status' => LinkTruyen::STATUS_NOT_FOUND]);
                             continue;
                         }
-                        Log::info('After have story id');
+                        Log::info(LinkTruyen::TYPE_DT . 'After have story id' . $title);
 
                         // INSERT CONTENT CHAPTER
                         Chapter::updateOrCreate(

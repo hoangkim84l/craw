@@ -72,7 +72,7 @@ class TFCaptureContentJob implements ShouldQueue, ShouldBeUnique
                             continue;
                         }
 
-                        Log::info('After have story id');
+                        Log::info(LinkTruyen::TYPE_TF . 'After have story id' . $title);
                         $title = strtolower($title);
                         $title = ucfirst($title);
                         $title = ltrim($title, " ");

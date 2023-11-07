@@ -67,6 +67,7 @@ class TFCaptureLinkChapterJob implements ShouldQueue, ShouldBeUnique
                                 'link' => $node->attr('href'),
                                 'status' => LinkChapter::STATUS_PENDING,
                                 'source' => ltrim($title, " "),
+                                'type' => LinkTruyen::TYPE_TF,
                             ]
                         );
                     });

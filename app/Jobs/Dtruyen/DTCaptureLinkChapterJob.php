@@ -54,10 +54,10 @@ class DTCaptureLinkChapterJob implements ShouldQueue, ShouldBeUnique
                     $title = $crawler->filter('h1.title')->each(function ($node) {
                         return $node->text();
                     })[0];
-        
+
                     $title = strtolower($title);
                     $title = ucfirst($title);
-            
+
                     $crawler->filterXPath("//div[@id='chapters']//a")->each(function ($node) use($title) {
                         /** @var Crawler $node */
                         LinkChapter::updateOrCreate(
@@ -67,6 +67,7 @@ class DTCaptureLinkChapterJob implements ShouldQueue, ShouldBeUnique
                                 'link' => $node->attr('href'),
                                 'status' => LinkChapter::STATUS_PENDING,
                                 'source' => ltrim($title, " "),
+                                'type' => LinkTruyen::TYPE_DT,
                             ]
                         );
                     });
