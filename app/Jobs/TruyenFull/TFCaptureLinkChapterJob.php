@@ -3,6 +3,7 @@
 namespace App\Jobs\TruyenFull;
 
 use App\Models\LinkChapter;
+use App\Models\LinkChapterHistory;
 use App\Models\LinkTruyen;
 use Exception;
 use Goutte\Client;
@@ -57,7 +58,7 @@ class TFCaptureLinkChapterJob implements ShouldQueue, ShouldBeUnique
                         $title = $crawler->filter('h3.title')->each(function ($node) {
                             return $node->text();
                         });
-    
+
                         if (empty($title)) {
                             Log::info('TFCaptureLinkChapterJob ko có title: ' . $data->link);
                             continue;
@@ -65,19 +66,22 @@ class TFCaptureLinkChapterJob implements ShouldQueue, ShouldBeUnique
                         $title = $title[0];
                         $title = strtolower($title);
                         $title = ucfirst($title);
-    
+
                         $crawler->filterXPath("//ul[@class='list-chapter']//a")->each(function ($node) use ($title) {
                             /** @var Crawler $node */
-                            LinkChapter::updateOrCreate(
-                                ['link' => $node->attr('href')],
-                                [
-                                    'name' => $node->text(),
-                                    'link' => $node->attr('href'),
-                                    'status' => LinkChapter::STATUS_PENDING,
-                                    'source' => ltrim($title, " "),
-                                    'type' => LinkTruyen::TYPE_TF,
-                                ]
-                            );
+                            $history = LinkChapterHistory::where('link', $node->attr('href'))->first();
+                            if (!$history) {
+                                LinkChapter::updateOrCreate(
+                                    ['link' => $node->attr('href')],
+                                    [
+                                        'name' => $node->text(),
+                                        'link' => $node->attr('href'),
+                                        'status' => LinkChapter::STATUS_PENDING,
+                                        'source' => ltrim($title, " "),
+                                        'type' => LinkTruyen::TYPE_TF,
+                                    ]
+                                );
+                            }
                         });
                     } catch (Exception $e) {
                         Log::info($e->getMessage());

@@ -3,6 +3,7 @@
 namespace App\Console\Commands;
 
 use App\Models\LinkChapter;
+use App\Models\LinkChapterHistory;
 use App\Models\LinkTruyen;
 use Illuminate\Console\Command;
 use Illuminate\Support\Str;
@@ -30,7 +31,7 @@ class CleanUpDataCommand extends Command
      */
     public function handle()
     {
-        LinkChapter::chunkById(1000, function ($records) {
+        LinkChapter::chunkById(500, function ($records) {
             foreach ($records as $record) {
                 if (!Str::startsWith($record->link, 'http')) {
                     $record->delete();
@@ -48,6 +49,18 @@ class CleanUpDataCommand extends Command
                     && $record->type != LinkTruyen::TYPE_TF
                 ) {
                     $record->update(['type' => LinkTruyen::TYPE_TF]);
+                }
+
+                if ($record->status === LinkChapter::STATUS_DONE) {
+                    LinkChapterHistory::create([
+                        'name' => $record->name,
+                        'link' => $record->link,
+                        'status' => $record->status,
+                        'source' => $record->source,
+                        'type' => $record->type
+                    ]);
+
+                    $record->delete();
                 }
             }
         });
