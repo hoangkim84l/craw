@@ -15,7 +15,7 @@ class CleanUpDataCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'cfn-crawler:cleam_up_data';
+    protected $signature = 'cfn-crawler:clean_up_data';
 
     /**
      * The console command description.
