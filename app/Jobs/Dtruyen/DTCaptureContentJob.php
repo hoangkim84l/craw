@@ -66,23 +66,23 @@ class DTCaptureContentJob implements ShouldQueue, ShouldBeUnique
                             continue;
                         }
                         $title = $title[0];
-    
+
                         $content = $crawler->filterXPath("//div[@id='chapter']//div[@id='chapter-content']")->each(function ($node) {
                             /** @var Crawler $node */
                             $node->filter('script')->each(function ($adNode) {
                                 // Loại bỏ các thẻ script khỏi nút cha
                                 $adNode->getNode(0)->parentNode->removeChild($adNode->getNode(0));
                             });
-    
+
                             return $node->html();
                         });
-    
+
                         if ($content) {
                             $title = strtolower($title);
                             $title = ucfirst($title);
                             $title = ltrim($title, " ");
                             $content = $content[0];
-    
+
                             // FIND STORY
                             $story = Story::where('name', 'like',  '%' . $data->source . '%')->first();
                             if (!$story) {
@@ -91,14 +91,14 @@ class DTCaptureContentJob implements ShouldQueue, ShouldBeUnique
                                 continue;
                             }
                             Log::info(LinkTruyen::TYPE_DT . 'After have story id' . $title);
-    
+
                             // INSERT CONTENT CHAPTER
                             Chapter::updateOrCreate(
                                 ['name' => $title],
                                 [
                                     'name' => $title,
                                     'slug' => Str::slug($title),
-                                    'site_title' => 'Đọc truyện online, truyện mới cập nhật, Đọc truyện' . $data->source . ' - ' . $title . 'Tiếng Việt tại website cafesuanovel.com',
+                                    'site_title' => 'Đọc truyện' . $data->source . ' - ' . $title . ' - Cafesuanovel',
                                     'meta_desc' => 'Đọc truyện online, truyện mới cập nhật, Đọc truyện' . $data->source . ' - ' . $title . 'Tiếng Việt tại website cafesuanovel.com',
                                     'meta_key' => 'Đọc truyện online, truyện mới cập nhật, Đọc truyện' . $data->source . ' - ' . $title . 'Tiếng Việt tại website cafesuanovel.com',
                                     'story_id' => $story->id,
@@ -114,7 +114,7 @@ class DTCaptureContentJob implements ShouldQueue, ShouldBeUnique
                                 ]
                             );
                         }
-    
+
                         // UPDATE STATUS AFTER CRAW
                         $data->update(['status' => LinkTruyen::STATUS_DONE]);
                     } catch (Exception $e) {

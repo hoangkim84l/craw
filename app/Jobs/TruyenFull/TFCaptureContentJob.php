@@ -55,7 +55,7 @@ class TFCaptureContentJob implements ShouldQueue, ShouldBeUnique
                 foreach ($records as $data) {
                     $client = new Client();
                     $crawler = $client->request('GET', $data->link);
-                    
+
                     try {
                         $title = $crawler->filter('a.chapter-title')->each(function ($node) {
                             return $node->text();
@@ -67,22 +67,22 @@ class TFCaptureContentJob implements ShouldQueue, ShouldBeUnique
                         }
 
                         $title = $title[0];
-    
+
                         $content = $crawler->filterXPath("//div[@id='chapter-c']")->each(function ($node) {
                             /** @var Crawler $node */
                             $node->filter('div.ads')->each(function ($adNode) {
                                 // Loại bỏ các thẻ div có class "ads" khỏi nút cha
                                 $adNode->getNode(0)->parentNode->removeChild($adNode->getNode(0));
                             });
-    
+
                             $node->filter('script')->each(function ($adNode) {
                                 // Loại bỏ các thẻ script khỏi nút cha
                                 $adNode->getNode(0)->parentNode->removeChild($adNode->getNode(0));
                             });
-    
+
                             return $node->html();
                         });
-    
+
                         if ($content) {
                             // FIND STORY
                             $story = Story::where('name', 'like',  '%' . $data->source . '%')->first();
@@ -91,20 +91,20 @@ class TFCaptureContentJob implements ShouldQueue, ShouldBeUnique
                                 Log::info('Do not have story id');
                                 continue;
                             }
-    
+
                             Log::info(LinkTruyen::TYPE_TF . 'After have story id' . $title);
                             $title = strtolower($title);
                             $title = ucfirst($title);
                             $title = ltrim($title, " ");
-    
+
                             $content = $content[0];
-    
+
                             // INSERT CONTENT CHAPTER
                             Chapter::updateOrCreate(
                                 ['name' => $title],
                                 [
                                     'slug' => Str::slug($title),
-                                    'site_title' => 'Đọc truyện online, truyện mới cập nhật, Đọc truyện' . $data->source . ' - ' . $title . 'Tiếng Việt tại website cafesuanovel.com',
+                                    'site_title' => 'Đọc truyện' . $data->source . ' - ' . $title . ' - Cafesuanovel',
                                     'meta_desc' => 'Đọc truyện online, truyện mới cập nhật, Đọc truyện' . $data->source . ' - ' . $title . 'Tiếng Việt tại website cafesuanovel.com',
                                     'meta_key' => 'Đọc truyện online, truyện mới cập nhật, Đọc truyện' . $data->source . ' - ' . $title . 'Tiếng Việt tại website cafesuanovel.com',
                                     'story_id' => $story->id,
@@ -120,7 +120,7 @@ class TFCaptureContentJob implements ShouldQueue, ShouldBeUnique
                                 ]
                             );
                         }
-    
+
                         // UPDATE STATUS AFTER CRAW
                         $data->update(['status' => LinkTruyen::STATUS_DONE]);
                     } catch (Exception $e) {
