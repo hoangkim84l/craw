@@ -43,5 +43,7 @@ class Story extends Model
      *
      * @var array<string, string>
      */
-    protected $casts = [];
+    protected $casts = [
+        'category_id' => 'array'
+    ];
 }

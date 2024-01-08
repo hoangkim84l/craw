@@ -4,13 +4,12 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class Chapter extends Model
+class Catalog extends Model
 {
     use HasFactory;
 
-    protected $table = 'chapters';
+    protected $table = 'catalog';
 
     /**
      * The attributes that are mass assignable.
@@ -20,22 +19,9 @@ class Chapter extends Model
     protected $fillable = [
         'name',
         'slug',
-        'site_title',
-        'meta_desc',
-        'meta_key',
-        'story_id',
-        'image_link',
-        'audio_link',
-        'show_img',
-        'content',
-        'status',
-        'view',
-        'author',
-        'ordering',
-        'created',
+        'parent_id',
+        'description'
     ];
-
-    public $timestamps = true;
 
     /**
      * The attributes that should be hidden for serialization.
@@ -50,9 +36,4 @@ class Chapter extends Model
      * @var array<string, string>
      */
     protected $casts = [];
-
-    public function story(): BelongsTo
-    {
-        return $this->belongsTo(Story::class, 'story_id');
-    }
 }

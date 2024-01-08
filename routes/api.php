@@ -1,6 +1,9 @@
 <?php
 
+use App\Http\Controllers\Api\CategoryController;
+use App\Http\Controllers\Api\ChapterController;
 use App\Http\Controllers\Api\DTruyenController;
+use App\Http\Controllers\Api\StoryController;
 use App\Http\Controllers\Api\TruyenFullController;
 use Illuminate\Support\Facades\Route;
 
@@ -31,7 +34,30 @@ Route::middleware('throttle:api')
             Route::post('/craw-link-chapters', [DTruyenController::class, 'getLinkChapters']);
             Route::post('/craw-content-chapter', [DTruyenController::class, 'getContentChapter']);
         });
-});
+        //STORY APIs
+        Route::prefix('st')->group(function () {
+            Route::get('/get-list-stories', [StoryController::class, 'getListStories']);
+            Route::get('/get-story/{id}', [StoryController::class, 'getStory']);
+            Route::get('/get-story-views', [StoryController::class, 'getStoryViews']);
+            Route::get('/get-story-new', [StoryController::class, 'getStoryNew']);
+            Route::get('/add-story-view-recently/{id}', [StoryController::class, 'addStoryViewRecently']);
+            Route::get('/get-story-view-recently', [StoryController::class, 'getStoryViewRecently']);
+        });
+        //CHAPTER APIs
+        Route::prefix('ct')->group(function () {
+            Route::get('/get-list-chapters/{id}', [ChapterController::class, 'getListChapters']);
+            Route::get('/get-chapter/{id}', [ChapterController::class, 'getChapter']);
+            Route::get('/get-list-chapters-no-paginate/{id}', [ChapterController::class, 'getListChaptersNoPaginate']);
+            Route::get('/get-list-new-chapters', [ChapterController::class, 'getNewChapters']);
+        });
+
+        //CATALOG APIs
+        Route::prefix('ctl')->group(function () {
+            Route::get('/get-list-catalog', [CategoryController::class, 'getListCategories']);
+            Route::get('/get-catalog/{id}', [CategoryController::class, 'getCategory']);
+            Route::get('/get-stories-by-category-id/{id}', [CategoryController::class, 'getListStoriesByCategory']);
+        });
+    });
 
 // PRIVATE ROUTES ----------------------------------------------------
 // Route::middleware(['auth:user_account, auth:sanctum'])
