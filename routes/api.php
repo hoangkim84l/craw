@@ -1,8 +1,11 @@
 <?php
 
+use App\Http\Controllers\Api\AccountController;
 use App\Http\Controllers\Api\CategoryController;
 use App\Http\Controllers\Api\ChapterController;
+use App\Http\Controllers\Api\ContactController;
 use App\Http\Controllers\Api\DTruyenController;
+use App\Http\Controllers\Api\LovelistController;
 use App\Http\Controllers\Api\StoryController;
 use App\Http\Controllers\Api\TruyenFullController;
 use Illuminate\Support\Facades\Route;
@@ -22,6 +25,12 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware('throttle:api')
     ->group(function () {
+        //ACCOUNT APIs
+        Route::prefix('ac')->group(function () {
+            Route::post('/register', [AccountController::class, 'register']);
+            Route::post('/login', [AccountController::class, 'login']);
+        });
+
         // CRAWL TRUYENFULL
         Route::prefix('tf')->group(function () {
             Route::post('/craw-new-story', [TruyenFullController::class, 'storeNewLinks']);
@@ -56,6 +65,16 @@ Route::middleware('throttle:api')
             Route::get('/get-list-catalog', [CategoryController::class, 'getListCategories']);
             Route::get('/get-catalog/{id}', [CategoryController::class, 'getCategory']);
             Route::get('/get-stories-by-category-id/{id}', [CategoryController::class, 'getListStoriesByCategory']);
+        });
+
+        //CONTACT APIs
+        Route::prefix('contact')->group(function () {
+            Route::post('/add-contact', [ContactController::class, 'addContact']);
+        });
+
+        //CONTACT APIs
+        Route::prefix('ll')->group(function () {
+            Route::post('/add-lovelist', [LovelistController::class, 'addLovelist']);
         });
     });
 

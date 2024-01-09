@@ -2,9 +2,11 @@
 
 namespace App\Jobs\TruyenFull;
 
+use App\Jobs\MailToUser\SendNewChapterJob;
 use App\Models\Chapter;
 use App\Models\LinkChapter;
 use App\Models\LinkTruyen;
+use App\Models\Lovelists;
 use App\Models\Story;
 use Exception;
 use Goutte\Client;
@@ -119,6 +121,9 @@ class TFCaptureContentJob implements ShouldQueue, ShouldBeUnique
                                     'created' => date("Y-m-d H:i:s"),
                                 ]
                             );
+
+                            // SEND TO USER LOVE THIS STORY
+                            SendNewChapterJob::dispatch($story->id);
                         }
 
                         // UPDATE STATUS AFTER CRAW

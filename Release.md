@@ -8,3 +8,15 @@
 - Add APIs `StoryController`
 - Add APIs `ChapterController`
 - Add APIs `CategoryController`
+
+**9-1-2024**
+- Install `Horizon`
+- Add APIs `AccountController`
+- Add APIs `ContactController`
+- Add APIs `LovelistController`
+- Add Job `SendNewChapterJob`
+- Add Mails `NewAccountMail, NewChapterMail, NewContactMail`
+- Add Models `Contact, Lovelist`
+- Add Migrations `contact, lovelists and users table`
+- Add blade template Mails
+- Add mail config SendInBlue
