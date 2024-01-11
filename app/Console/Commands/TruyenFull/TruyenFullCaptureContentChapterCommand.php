@@ -2,17 +2,17 @@
 
 namespace App\Console\Commands\TruyenFull;
 
-use App\Jobs\TruyenFull\TFCaptureContentJob;
+use App\Jobs\TruyenFull\CrawContentChapter;
 use Illuminate\Console\Command;
 
-class TfCaptureContentChapterCommand extends Command
+class TruyenFullCaptureContentChapterCommand extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'cfn-crawler:tf_capture_content_chapter';
+    protected $signature = 'cfn-crawler:truyenfull_capture_content_chapter';
 
     /**
      * The console command description.
@@ -28,6 +28,6 @@ class TfCaptureContentChapterCommand extends Command
      */
     public function handle()
     {
-        TFCaptureContentJob::dispatch();
+        CrawContentChapter::dispatch();
     }
 }

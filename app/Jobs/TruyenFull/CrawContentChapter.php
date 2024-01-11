@@ -19,7 +19,7 @@ use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
 
-class TFCaptureContentJob implements ShouldQueue, ShouldBeUnique
+class CrawContentChapter implements ShouldQueue, ShouldBeUnique
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
@@ -40,7 +40,7 @@ class TFCaptureContentJob implements ShouldQueue, ShouldBeUnique
     public function tags(): array
     {
         return [
-            'truyenfull_capture_content_job'
+            'truyenfull_capture_content_job_v2'
         ];
     }
 
@@ -51,8 +51,7 @@ class TFCaptureContentJob implements ShouldQueue, ShouldBeUnique
      */
     public function handle()
     {
-        LinkChapter::where('status', LinkChapter::STATUS_PENDING)
-            ->where('type', LinkTruyen::TYPE_TF)
+        LinkChapter::where('status', LinkChapter::STATUS_PENDING)->where('type', LinkTruyen::TYPE_TF)
             ->chunkById(1000, function ($records) {
                 foreach ($records as $data) {
                     $client = new Client();
@@ -86,6 +85,7 @@ class TFCaptureContentJob implements ShouldQueue, ShouldBeUnique
                         });
 
                         if ($content) {
+                            Log::info('co-con-tent');
                             // FIND STORY
                             $story = Story::where('name', 'like',  '%' . $data->source . '%')->first();
                             if (!$story) {
