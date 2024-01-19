@@ -2,7 +2,7 @@
 
 namespace App\Console\Commands\TruyenFull;
 
-use App\Jobs\TruyenFull\CrawContentChapter;
+use App\Jobs\TruyenFull\TFCrawContentChapter;
 use Illuminate\Console\Command;
 
 class TruyenFullCaptureContentChapterCommand extends Command
@@ -28,6 +28,6 @@ class TruyenFullCaptureContentChapterCommand extends Command
      */
     public function handle()
     {
-        CrawContentChapter::dispatch();
+        TFCrawContentChapter::dispatch();
     }
 }

@@ -26,7 +26,7 @@ class Kernel extends ConsoleKernel
         // $schedule->command(DTCaptureLinksChapterCommand::class)->daily();
         // $schedule->command(DtCaptureContentChapterCommand::class)->daily();
 
-        $schedule->command(CleanUpDataCommand::class)->weekly();
+        $schedule->command(CleanUpDataCommand::class)->daily();
     }
 
     /**
