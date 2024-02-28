@@ -75,6 +75,8 @@ Route::middleware('throttle:api')
         //CONTACT APIs
         Route::prefix('ll')->group(function () {
             Route::post('/add-lovelist', [LovelistController::class, 'addLovelist']);
+            Route::get('/get-lovelist/{id}', [LovelistController::class, 'getLovelist']);
+            Route::post('/delete-lovelist', [LovelistController::class, 'removeLovelist']);
         });
     });
 
