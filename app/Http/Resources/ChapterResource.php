@@ -28,7 +28,6 @@ class ChapterResource extends JsonResource
             'show_img' => $this->show_img,
             'content' => $this->content,
             'author' => $this->author,
-            'created' => Carbon::parse($this->created)->format('d/m/Y'),
             'status' => $this->status,
             'ordering' => $this->ordering,
             'view' => number_format($this->view),

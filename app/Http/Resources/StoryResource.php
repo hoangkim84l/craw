@@ -25,8 +25,6 @@ class StoryResource extends JsonResource
             'meta_key' => $this->meta_key,
             'image_link' => url("/upload/stories/$this->image_link"),
             'category_id' => $this->category_id,
-            'created' => Carbon::parse($this->created)->format('d/m/Y'),
-            'updated' => Carbon::parse($this->updated)->format('d/m/Y'),
             'status' => $this->status,
             'continues' => $this->continues,
             'view' => number_format($this->view),

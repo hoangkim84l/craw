@@ -52,7 +52,7 @@ class StoryController extends Controller
 
     public function getStoryNew(Request $request)
     {
-        $stories = Story::orderBy('created', 'desc')->limit(6)->get();
+        $stories = Story::orderBy('created_at', 'desc')->limit(6)->get();
         return StoryResource::collection($stories);
     }
 

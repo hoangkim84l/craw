@@ -12,7 +12,11 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->dateTime('email_verified_at')->nullable();
+            $table->dropColumn(['created', 'updated']);
+        });
+
+        Schema::table('users', function (Blueprint $table) {
+            $table->date('email_verified_at')->nullable();
             $table->timestamps();
         });
     }

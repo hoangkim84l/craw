@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Chapter extends Model
 {
@@ -32,7 +33,7 @@ class Chapter extends Model
         'view',
         'author',
         'ordering',
-        'created',
+        'created_at',
     ];
 
     public $timestamps = true;
@@ -54,5 +55,19 @@ class Chapter extends Model
     public function story(): BelongsTo
     {
         return $this->belongsTo(Story::class, 'story_id');
+    }
+
+    public function nextChapter(): HasOne
+    {
+        return $this->hasOne(Chapter::class, 'story_id')
+            ->where('created_at', '>', $this->created_at)
+            ->orderBy('created_at');
+    }
+
+    public function previousChapter(): HasOne
+    {
+        return $this->hasOne(Chapter::class, 'story_id')
+            ->where('created_at', '<', $this->created_at)
+            ->orderBy('created_at', 'desc');
     }
 }

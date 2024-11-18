@@ -110,7 +110,6 @@ class DTCaptureContentJob implements ShouldQueue, ShouldBeUnique
                                     'view' => 0,
                                     'author' => 'System',
                                     'ordering' => 1,
-                                    'created' => date("Y-m-d H:i:s"),
                                 ]
                             );
                         }
