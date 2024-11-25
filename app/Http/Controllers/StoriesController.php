@@ -10,9 +10,16 @@ use Illuminate\Http\Request;
 
 class StoriesController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $storiesNew = Story::orderBy('created_at', 'desc')->paginate();
+        $storiesNew = Story::query()->paginate();
+        if ($request->ajax()) {
+            // Trả về dữ liệu dạng JSON khi là yêu cầu AJAX
+            return response()->json([
+                'html' => view('partials.story_item', compact('storiesNew'))->render(),
+                'next_page_url' => $storiesNew->nextPageUrl(),
+            ], 200, [], JSON_UNESCAPED_UNICODE);
+        }
         return view('layouts.stories.list', compact('storiesNew'));
     }
 
@@ -20,9 +27,17 @@ class StoriesController extends Controller
     {
         $story = Story::where('slug', $slug)->firstOrFail();
         $storyTags = Catalog::whereIn('id', $story->category_id)->get();
-        $chapters = Chapter::where('story_id', $story->id)->orderBy('created_at', 'desc')->get();
+        $chapters = Chapter::where('story_id', $story->id)->orderBy('id', 'desc')->get();
         session()->push('recently_viewed', $story->id);
         return view('layouts.stories.detail', compact('story', 'storyTags', 'chapters'));
+    }
+
+    public function showChapter(string $slug)
+    {
+        $story = Story::where('slug', $slug)->firstOrFail();
+        $storyTags = Catalog::whereIn('id', $story->category_id)->get();
+        $chapters = Chapter::where('story_id', $story->id)->orderBy('id', 'desc')->get();
+        return view('layouts.stories.chapters', compact('story', 'storyTags', 'chapters'));
     }
 
     public function search(Request $request)

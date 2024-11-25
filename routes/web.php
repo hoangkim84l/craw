@@ -20,6 +20,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [HomeController::class, 'index']);
 Route::get('/truyen.html', [StoriesController::class, 'index'])->name('truyen');
 Route::get('/truyen/{truyen}', [StoriesController::class, 'show'])->name('show-truyen');
+Route::get('/truyen/{truyen}/ds-chuong.html', [StoriesController::class, 'showChapter'])->name('show-chuong');
 Route::get('/tim-truyen', [StoriesController::class, 'search'])->name('tim-truyen');
 
 Route::get('/truyen/{truyen}/danh-sach-chuong.html', [ChapterController::class, 'index'])->name('danh-sach-chuong');

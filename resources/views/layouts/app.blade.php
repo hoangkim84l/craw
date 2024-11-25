@@ -5,6 +5,7 @@ xmlns:data="http://www.google.com/2005/gml/data" xmlns:expr="http://www.google.c
     @include('layouts.head')
 </head>
 <body>
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <div id="theme-options" style="display:none">
         <div class="ify-panel section" id="ify-panel" name="Theme Options">
                 <div class="widget TextList" data-version="2" id="TextList100">

@@ -11,7 +11,7 @@ class ChapterController extends Controller
     public function index(string $slug)
     {
         $story = Story::where('slug', $slug)->firstOrFail();
-        $chapters = Chapter::where('story_id', $story->id)->orderBy('created_at', 'desc')->get();
+        $chapters = Chapter::where('story_id', $story->id)->orderBy('id', 'desc')->get();
         return view('layouts.chapters.list', compact('chapters'));
     }
 
@@ -19,15 +19,15 @@ class ChapterController extends Controller
     {
         $story = Story::where('slug', $truyen)->firstOrFail();
         $chapter = Chapter::where('story_id', $story->id)->where('slug', $chuong)->first();
-        $chapters = Chapter::where('story_id', $story->id)->orderBy('created_at', 'desc')->get();
+        $chapters = Chapter::where('story_id', $story->id)->orderBy('id', 'desc')->get();
         $nextChapter = Chapter::where('story_id', $story->id)
-            ->where('created_at', '>', $chapter->created_at)
-            ->orderBy('created_at', 'asc')
+            ->where('id', '>', $chapter->id)
+            ->orderBy('id', 'asc')
             ->first();
 
         $previousChapter = Chapter::where('story_id', $story->id)
-            ->where('created_at', '<', $chapter->created_at)
-            ->orderBy('created_at', 'desc')
+            ->where('id', '<', $chapter->id)
+            ->orderBy('id', 'desc')
             ->first();
         return view('layouts.chapters.detail', compact('story', 'chapter', 'nextChapter', 'previousChapter', 'chapters'));
     }

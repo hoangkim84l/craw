@@ -19,7 +19,7 @@ class SetGlobalData
     {
         $userData = User::find(auth()->id());
         $stories = Story::orderBy('view', 'desc')->limit(5)->get();
-        $tags = Catalog::orderBy('created_at', 'desc')->get();
+        $tags = Catalog::orderBy('id', 'desc')->get();
         $siteSetting = Support::find(1);
 
         $storyIds = session()->get('recently_viewed', []);
@@ -27,7 +27,6 @@ class SetGlobalData
         $viewedStories = Story::whereIn('id', $lastFiveViewedIds)->get();
 
         $storiesSameTag =Story::inRandomOrder()->limit(3)->get();
-
 
         view()->share([
             'userData' => $userData,

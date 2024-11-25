@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('link');
             $table->string('status')->nullable();
             $table->string('source')->nullable();
+            $table->string('type')->nullable();
             $table->timestamps();
         });
     }

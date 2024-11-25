@@ -13,7 +13,7 @@
                                                     <a class="logo-img" href="{{ URL::to('/') }}">
                                                             <img alt="CafesuaNovel" data-height="506"
                                                                 data-width="500"
-                                                                src="https://blogger.googleusercontent.com/img/a/AVvXsEjUXWsyWsaoaubw9EP5qFjYmVqcQNmov1F6sOBOBW3acCg7UGaxG_-WhS35Y6-u47QV9eVrqDCQXuUj5hpwzP58qCFMyX_qe-4lKFZ4T_tyJfgAyjYtB6no-T36-RJO6rWXSHuzVxfeikYdj9W5E7RIw6XzEZrcbAAZHzU-eJLnY4GNPsioAPm72UeAkYk=s506"
+                                                                src="{{ asset('storage/upload/logo/logo.png') }}"
                                                                 title="CafesuaNovel">
                                                             <h1 id="h1-off">CafesuaNovel</h1>
                                                     </a>

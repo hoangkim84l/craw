@@ -53,12 +53,12 @@
                   </div>
                   <div class="widget-content">
                      <ul class="social-icons social social-bg">
-                        <li class="facebook link-0"><a alt="facebook" class="facebook btn" href="https://www.facebook.com/profile.php?id=100066821057747" rel="noopener noreferrer" target="_blank" title="facebook"><span class="text">Facebook</span></a></li>
-                        <li class="twitter link-1"><a alt="twitter" class="twitter btn" href="https://www.facebook.com/" rel="noopener noreferrer" target="_blank" title="twitter"><span class="text">Twitter</span></a></li>
-                        <li class="youtube link-2"><a alt="youtube" class="youtube btn" href="https://aaaa" rel="noopener noreferrer" target="_blank" title="youtube"><span class="text">YouTube</span></a></li>
-                        <li class="instagram link-3"><a alt="instagram" class="instagram btn" href="https://www/" rel="noopener noreferrer" target="_blank" title="instagram"><span class="text">Instagram</span></a></li>
-                        <li class="linkedin link-4"><a alt="linkedin" class="linkedin btn" href="" rel="noopener noreferrer" target="_blank" title="linkedin"><span class="text">LinkedIn</span></a></li>
-                        <li class="skype link-5"><a alt="skype" class="skype btn" href="" rel="noopener noreferrer" target="_blank" title="skype"><span class="text">Skype</span></a></li>
+                        <li class="facebook link-0"><a alt="facebook" class="facebook btn" href="https://www.facebook.com/cafesuateam/" rel="noopener noreferrer" target="_blank" title="facebook"><span class="text">Facebook</span></a></li>
+                        <li class="twitter link-1"><a alt="twitter" class="twitter btn" href="https://www.facebook.com/cafesuateam/" rel="noopener noreferrer" target="_blank" title="twitter"><span class="text">Twitter</span></a></li>
+                        <li class="youtube link-2"><a alt="youtube" class="youtube btn" href="https://www.facebook.com/cafesuateam/" rel="noopener noreferrer" target="_blank" title="youtube"><span class="text">YouTube</span></a></li>
+                        <li class="instagram link-3"><a alt="instagram" class="instagram btn" href="https://www.facebook.com/cafesuateam/" rel="noopener noreferrer" target="_blank" title="instagram"><span class="text">Instagram</span></a></li>
+                        <li class="linkedin link-4"><a alt="linkedin" class="linkedin btn" href="https://www.facebook.com/cafesuateam/" rel="noopener noreferrer" target="_blank" title="linkedin"><span class="text">LinkedIn</span></a></li>
+                        <li class="skype link-5"><a alt="skype" class="skype btn" href="https://www.facebook.com/cafesuateam/" rel="noopener noreferrer" target="_blank" title="skype"><span class="text">Skype</span></a></li>
                      </ul>
                   </div>
                </div>

@@ -32,12 +32,12 @@
                                  <h2 style="text-align: left;"><span style="font-family: Nunito; font-size: medium;">{{ $chapter->name }}</span></h2>
                                  <div class="post-nav">
                                     @if ($previousChapter)
-                                    <a class="post-nav-older-link" href="{{ route('chapter-detail', ['truyen' => $previousChapter->slug, 'chuong' => $previousChapter->slug]) }}" id="Blog1_post-nav-newer-link">
+                                    <a class="post-nav-older-link" href="{{ route('chapter-detail', ['truyen' => $story->slug, 'chuong' => $previousChapter->slug]) }}" id="Blog1_post-nav-newer-link">
                                        Chapter Trước
                                     </a>
                                     @endif
                                     @if ($nextChapter)
-                                    <a class="post-nav-newer-link" href="{{ route('chapter-detail', ['truyen' => $nextChapter->slug, 'chuong' => $nextChapter->slug]) }}" id="Blog1_post-nav-older-link">
+                                    <a class="post-nav-newer-link" href="{{ route('chapter-detail', ['truyen' => $story->slug, 'chuong' => $nextChapter->slug]) }}" id="Blog1_post-nav-older-link">
                                        Chapter Tiếp Theo
                                     </a>
                                     @endif
@@ -47,27 +47,27 @@
                               </div>
                               <div class="post-nav">
                                     @if ($previousChapter)
-                                    <a class="post-nav-older-link" href="{{ route('chapter-detail', ['truyen' => $previousChapter->slug, 'chuong' => $previousChapter->slug]) }}" id="Blog1_post-nav-newer-link">
+                                    <a class="post-nav-older-link" href="{{ route('chapter-detail', ['truyen' => $story->slug, 'chuong' => $previousChapter->slug]) }}" id="Blog1_post-nav-newer-link">
                                        Chapter Trước
                                     </a>
                                     @endif
                                     @if ($nextChapter)
-                                    <a class="post-nav-newer-link" href="{{ route('chapter-detail', ['truyen' => $nextChapter->slug, 'chuong' => $nextChapter->slug]) }}" id="Blog1_post-nav-older-link">
+                                    <a class="post-nav-newer-link" href="{{ route('chapter-detail', ['truyen' => $story->slug, 'chuong' => $nextChapter->slug]) }}" id="Blog1_post-nav-older-link">
                                        Chapter Tiếp Theo
                                     </a>
                                     @endif
                               </div>
                               <div class="post-share">
                                  <ul class="litespot-pro-share-links social social-bg">
-                                    <li class="facebook has-span"><a class="facebook btn window-ify" data-height="500" data-url="https://www.facebook.com/sharer.php?u=https://thaygivietdo.blogspot.com/2021/03/oi-ten-read-more-trong-bai-post.html" data-width="520" href="javascript:;" rel="nofollow" title="Facebook"><span>Facebook</span></a></li>
-                                    <li class="twitter has-span"><a class="twitter btn window-ify" data-height="520" data-url="https://twitter.com/intent/tweet?url=https://thaygivietdo.blogspot.com/2021/03/oi-ten-read-more-trong-bai-post.html&amp;text=Đổi tên \x22READ MORE\x22 trong bài post" data-width="860" href="javascript:;" rel="nofollow" title="Twitter"><span>Twitter</span></a></li>
-                                    <li class="whatsapp"><a class="whatsapp btn window-ify" data-height="520" data-url="https://api.whatsapp.com/send?text=Đổi tên \x22READ MORE\x22 trong bài post | https://thaygivietdo.blogspot.com/2021/03/oi-ten-read-more-trong-bai-post.html" data-width="860" href="javascript:;" rel="nofollow" title="WhatsApp"></a></li>
-                                    <li class="pinterest-p"><a class="pinterest btn window-ify" data-height="520" data-url="https://www.pinterest.com/pin/create/button/?url=https://thaygivietdo.blogspot.com/2021/03/oi-ten-read-more-trong-bai-post.html&amp;media=https://blogger.googleusercontent.com/img/a/AVvXsEh9VhT9bbVaUC5_dbDqJnbyu2sh3JKsEzjkhMYZIh30je8PiHJrI6tpEkhzNR2OGr24p-tOxhK7LsuLrmz1vtY4xANqYwAbjPirLwr-rTIy_X85XstjaFWudX2FxV5_fGEU0gwBUVpVXB0wlBv7Nx2IwdaCQasKuKjRSbOHoT134MbFVBN0MkPk_uo4h74&amp;description=Đổi tên \x22READ MORE\x22 trong bài post" data-width="860" href="javascript:;" rel="nofollow" title="Pinterest"></a></li>
-                                    <li class="reddit"><a class="reddit btn window-ify" data-height="520" data-url="https://reddit.com/submit?url=https://thaygivietdo.blogspot.com/2021/03/oi-ten-read-more-trong-bai-post.html&amp;title=Đổi tên \x22READ MORE\x22 trong bài post" data-width="860" href="javascript:;" rel="nofollow" title="Reddit"></a></li>
-                                    <li class="linkedin"><a class="linkedin btn window-ify" data-height="520" data-url="https://www.linkedin.com/shareArticle?mini=true&amp;url=https://thaygivietdo.blogspot.com/2021/03/oi-ten-read-more-trong-bai-post.html&amp;title=Đổi tên \x22READ MORE\x22 trong bài post" data-width="860" href="javascript:;" rel="nofollow" title="LinkedIn"></a></li>
-                                    <li class="tumblr"><a class="tumblr btn window-ify" data-height="520" data-url="https://www.tumblr.com/share/link?url=https://thaygivietdo.blogspot.com/2021/03/oi-ten-read-more-trong-bai-post.html&amp;name=Đổi tên \x22READ MORE\x22 trong bài post" data-width="860" href="javascript:;" rel="nofollow" title="Tumblr"></a></li>
-                                    <li class="telegram"><a class="telegram btn window-ify" data-height="520" data-url="https://telegram.me/share/url?url=https://thaygivietdo.blogspot.com/2021/03/oi-ten-read-more-trong-bai-post.html&amp;text=Đổi tên \x22READ MORE\x22 trong bài post" data-width="860" href="javascript:;" rel="nofollow" title="Telegram"></a></li>
-                                    <li class="email"><a class="email btn window-ify" data-height="500" data-url="mailto:?subject=Đổi tên \x22READ MORE\x22 trong bài post&amp;body=https://thaygivietdo.blogspot.com/2021/03/oi-ten-read-more-trong-bai-post.html" data-width="520" href="javascript:;" rel="nofollow" title="Email"></a></li>
+                                    <li class="facebook has-span"><a class="facebook btn window-ify" data-height="500" data-url="https://www.facebook.com/cafesuateam/" data-width="520" href="javascript:;" rel="nofollow" title="Facebook"><span>Facebook</span></a></li>
+                                    <li class="twitter has-span"><a class="twitter btn window-ify" data-height="520" data-url="https://www.facebook.com/cafesuateam/" data-width="860" href="javascript:;" rel="nofollow" title="Twitter"><span>Twitter</span></a></li>
+                                    <li class="whatsapp"><a class="whatsapp btn window-ify" data-height="520" data-url="https://www.facebook.com/cafesuateam/" data-width="860" href="javascript:;" rel="nofollow" title="WhatsApp"></a></li>
+                                    <li class="pinterest-p"><a class="pinterest btn window-ify" data-height="520" data-url="https://www.facebook.com/cafesuateam/" data-width="860" href="javascript:;" rel="nofollow" title="Pinterest"></a></li>
+                                    <li class="reddit"><a class="reddit btn window-ify" data-height="520" data-url="https://www.facebook.com/cafesuateam/" data-width="860" href="javascript:;" rel="nofollow" title="Reddit"></a></li>
+                                    <li class="linkedin"><a class="linkedin btn window-ify" data-height="520" data-url="https://www.facebook.com/cafesuateam/" data-width="860" href="javascript:;" rel="nofollow" title="LinkedIn"></a></li>
+                                    <li class="tumblr"><a class="tumblr btn window-ify" data-height="520" data-url="https://www.facebook.com/cafesuateam/" data-width="860" href="javascript:;" rel="nofollow" title="Tumblr"></a></li>
+                                    <li class="telegram"><a class="telegram btn window-ify" data-height="520" data-url="https://www.facebook.com/cafesuateam/" data-width="860" href="javascript:;" rel="nofollow" title="Telegram"></a></li>
+                                    <li class="email"><a class="email btn window-ify" data-height="500" data-url="mailto:?subject=Đổi tên \x22READ MORE\x22 trong bài post&amp;body=https://www.facebook.com/cafesuateam/" data-width="520" href="javascript:;" rel="nofollow" title="Email"></a></li>
                                     <li class="show-hid"><a class="btn" href="javascript:;" rel="nofollow" title="Show more"></a></li>
                                  </ul>
                               </div>
@@ -114,7 +114,7 @@
                </div>
                <div class="widget PopularPosts" data-version="2" id="PopularPosts2">
                   <div class="widget-title title-wrap">
-                     <h3 class="title">Danh Sách Chương</h3>
+                     <h3 class="title"><a href="{{ route('show-chuong', ['truyen' => $story->slug]) }}">Danh Sách Chương</a></h3>
                   </div>
                   <div class="widget-content default-items scroll-2">
                      @foreach($chapters as $index => $row)

@@ -7,7 +7,7 @@
                         <div class="widget Image" data-version="2" id="Image101">
                             <a class="footer-logo custom-image" href="{{ URL::to('/') }}">
                                     <img alt="Không Nên Tin" id="Image101_img"
-                                        src="https://blogger.googleusercontent.com/img/a/AVvXsEi_EDt8xyz93ITYH6YbwxPbQz_vZYVmfgXrDm-heB4zhdF1ZgYkvQVUYaqvgNMrSrQxS532m9_QYwT7hi0i0vDx52vyN9dKormYpN_4eJ3eVq0XBG4OB_bZ3qY51f6rjHWx7L1iXLG-zqnHBn0x7f8ka9ydRmef3DYNamyc5ArMQ5AYp6kxe7AwglRXs0A=s506">
+                                        src="{{ asset('storage/upload/logo/logo.png') }}">
                             </a>
                             <div class="footer-info">
                                     <p class="image-caption excerpt">Cái gì không biết thì từ từ biết, coi,
@@ -17,19 +17,19 @@
                         <div class="widget LinkList" data-version="2" id="LinkList103">
                             <ul class="social-icons social social-bg-hover">
                                     <li class="facebook link-0"><a alt="facebook" class="facebook btn"
-                                                href="https://www.facebook.com/" rel="noopener noreferrer"
+                                                href="https://www.facebook.com/cafesuateam/" rel="noopener noreferrer"
                                                 target="_blank" title="facebook"></a></li>
                                     <li class="twitter link-1"><a alt="twitter" class="twitter btn"
-                                                href="https://www.facebook.com/" rel="noopener noreferrer"
+                                                href="https://www.instagram.com/cafesuanovel/" rel="noopener noreferrer"
                                                 target="_blank" title="twitter"></a></li>
                                     <li class="youtube link-2"><a alt="youtube" class="youtube btn"
-                                                href="https://www.https.com/" rel="noopener noreferrer"
+                                                href="https://www.instagram.com/cafesuanovel/" rel="noopener noreferrer"
                                                 target="_blank" title="youtube"></a></li>
                                     <li class="instagram link-3"><a alt="instagram" class="instagram btn"
-                                                href="https://www..com/" rel="noopener noreferrer"
+                                                href="https://www.instagram.com/cafesuanovel/" rel="noopener noreferrer"
                                                 target="_blank" title="instagram"></a></li>
                                     <li class="rss link-4"><a alt="rss" class="rss btn"
-                                                href="https://www.https://.com/" rel="noopener noreferrer"
+                                                href="https://www.instagram.com/cafesuanovel/" rel="noopener noreferrer"
                                                 target="_blank" title="rss"></a></li>
                             </ul>
                         </div>

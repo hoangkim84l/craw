@@ -122,8 +122,8 @@
                         <div class="widget Blog" data-version="2" id="Blog1">
                               <div class="blog-posts-wrap">
                                     <div class="title-wrap bp-title">
-                                          <h3 class="title">Read more</h3><a class="wt-l"
-                                                href="{{ route('truyen') }}">View all</a>
+                                          <h3 class="title">Xem Thêm</h3><a class="wt-l"
+                                                href="{{ route('truyen') }}">Xem tất cả</a>
                                     </div>
                                     <div class="blog-posts hfeed index-post-wrap">
                                           @foreach ($populars->slice(4) as $index => $storyView)
@@ -160,13 +160,13 @@
                                     <a class="blog-pager-older-link load-more btn"
                                           data-load=""
                                           href="{{ route('truyen') }}" id="litespot-pro-load-more-link">
-                                          Load More
+                                          Xem thêm
                                     </a>
                                     <span class="loading">
                                           <div class="loader"></div>
                                     </span>
                                     <span class="no-more load-more btn">
-                                          That is All
+                                          Đó là tất cả rồi bro ơi
                                     </span>
                               </div>
                               <script type="text/javascript">
@@ -192,26 +192,26 @@
                               <div class="widget-content">
                                     <ul class="social-icons social social-bg">
                                           <li class="facebook link-0"><a alt="facebook" class="facebook btn"
-                                                      href="https://www.facebook.com/profile.php?id=100066821057747 #Facebook"
+                                                      href="https://www.facebook.com/cafesuateam/ #Facebook"
                                                       rel="noopener noreferrer" target="_blank"
                                                       title="facebook"></a></li>
                                           <li class="twitter link-1"><a alt="twitter" class="twitter btn"
-                                                      href="https://www.facebook.com/ # Twitter"
+                                                      href="https://www.facebook.com/cafesuateam/ # Twitter"
                                                       rel="noopener noreferrer" target="_blank"
                                                       title="twitter"></a></li>
                                           <li class="youtube link-2"><a alt="youtube" class="youtube btn"
-                                                      href="https://aaaa # YouTube"
+                                                      href="https://www.facebook.com/cafesuateam/ # YouTube"
                                                       rel="noopener noreferrer" target="_blank"
                                                       title="youtube"></a></li>
                                           <li class="instagram link-3"><a alt="instagram"
-                                                      class="instagram btn" href="https://www/ # Instagram"
+                                                      class="instagram btn" href="https://www.facebook.com/cafesuateam/ # Instagram"
                                                       rel="noopener noreferrer" target="_blank"
                                                       title="instagram"></a></li>
                                           <li class="linkedin link-4"><a alt="linkedin" class="linkedin btn"
-                                                      href=" # LinkedIn" rel="noopener noreferrer"
+                                                      href="https://www.facebook.com/cafesuateam/ # LinkedIn" rel="noopener noreferrer"
                                                       target="_blank" title="linkedin"></a></li>
                                           <li class="skype link-5"><a alt="skype" class="skype btn"
-                                                      href=" # Skype" rel="noopener noreferrer"
+                                                      href="https://www.facebook.com/cafesuateam/ # Skype" rel="noopener noreferrer"
                                                       target="_blank" title="skype"></a></li>
                                     </ul>
                               </div>
@@ -226,7 +226,7 @@
                                           <div class="entry-header">
                                                 <h2 class="entry-title"><a
                                                             href="{{ route('chapter-detail', ['truyen' => $row->slug, 'chuong' => $row->slug]) }}"
-                                                            title="{{ $row->site_title }}">{{ $row->name }}</a></h2>
+                                                            title="{{ $row->site_title }}">{{ $row->story->name }} - {{ $row->name }}</a></h2>
                                                 <div class="entry-meta"><span class="entry-time mi"><time
                                                                   class="published"
                                                                   datetime="{{ $row->created_at }}">{{ $row->created_at }}</time></span>

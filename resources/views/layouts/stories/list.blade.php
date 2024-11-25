@@ -32,7 +32,7 @@
                      </div>
                   </div>
                   <div class="blog-pager" id="blog-pager">
-                     <a class="blog-pager-older-link load-more btn" data-load="https://thaygivietdo.blogspot.com/search?updated-max=2024-09-28T21:59:00%2B07:00&amp;max-results=20&amp;start=12&amp;by-date=false" href="javascript:;" id="litespot-pro-load-more-link">
+                     <a class="blog-pager-older-link load-more btn" data-load="{{ $storiesNew->nextPageUrl() }}" href="javascript:;" id="litespot-pro-load-more-link2">
                      Xem Thêm
                      </a>
                      <span class="loading">
@@ -56,12 +56,12 @@
                   </div>
                   <div class="widget-content">
                      <ul class="social-icons social social-bg">
-                        <li class="facebook link-0"><a alt="facebook" class="facebook btn" href="https://www.facebook.com/profile.php?id=100066821057747" rel="noopener noreferrer" target="_blank" title="facebook"><span class="text">Facebook</span></a></li>
-                        <li class="twitter link-1"><a alt="twitter" class="twitter btn" href="https://www.facebook.com/" rel="noopener noreferrer" target="_blank" title="twitter"><span class="text">Twitter</span></a></li>
-                        <li class="youtube link-2"><a alt="youtube" class="youtube btn" href="https://aaaa" rel="noopener noreferrer" target="_blank" title="youtube"><span class="text">YouTube</span></a></li>
-                        <li class="instagram link-3"><a alt="instagram" class="instagram btn" href="https://www/" rel="noopener noreferrer" target="_blank" title="instagram"><span class="text">Instagram</span></a></li>
-                        <li class="linkedin link-4"><a alt="linkedin" class="linkedin btn" href="" rel="noopener noreferrer" target="_blank" title="linkedin"><span class="text">LinkedIn</span></a></li>
-                        <li class="skype link-5"><a alt="skype" class="skype btn" href="" rel="noopener noreferrer" target="_blank" title="skype"><span class="text">Skype</span></a></li>
+                        <li class="facebook link-0"><a alt="facebook" class="facebook btn" href="https://www.facebook.com/cafesuateam/" rel="noopener noreferrer" target="_blank" title="facebook"><span class="text">Facebook</span></a></li>
+                        <li class="twitter link-1"><a alt="twitter" class="twitter btn" href="https://www.facebook.com/cafesuateam/" rel="noopener noreferrer" target="_blank" title="twitter"><span class="text">Twitter</span></a></li>
+                        <li class="youtube link-2"><a alt="youtube" class="youtube btn" href="https://www.facebook.com/cafesuateam/" rel="noopener noreferrer" target="_blank" title="youtube"><span class="text">YouTube</span></a></li>
+                        <li class="instagram link-3"><a alt="instagram" class="instagram btn" href="https://www.facebook.com/cafesuateam/" rel="noopener noreferrer" target="_blank" title="instagram"><span class="text">Instagram</span></a></li>
+                        <li class="linkedin link-4"><a alt="linkedin" class="linkedin btn" href="https://www.facebook.com/cafesuateam/" rel="noopener noreferrer" target="_blank" title="linkedin"><span class="text">LinkedIn</span></a></li>
+                        <li class="skype link-5"><a alt="skype" class="skype btn" href="https://www.facebook.com/cafesuateam/" rel="noopener noreferrer" target="_blank" title="skype"><span class="text">Skype</span></a></li>
                      </ul>
                   </div>
                </div>
@@ -72,4 +72,47 @@
       </aside>
    </div>
 </div>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    const loadMoreBtn = document.getElementById('litespot-pro-load-more-link2');
+    const blogPostsContainer = document.querySelector('.blog-posts');
+
+    let nextPageUrl = loadMoreBtn.getAttribute('data-load'); // URL của trang tiếp theo
+    loadMoreBtn.addEventListener('click', function () {
+        if (!nextPageUrl) {
+            return; // Nếu không có trang tiếp theo thì không làm gì
+        }
+
+        loadMoreBtn.style.display = 'none'; // Ẩn nút
+        document.querySelector('.loading').style.display = 'block'; // Hiển thị loader
+
+        fetch(nextPageUrl, {
+            headers: {
+               'X-Requested-With': 'XMLHttpRequest'
+            }
+            })
+            .then(response => response.json())
+            .then(data => {
+                // Thêm HTML của các story mới vào container
+                blogPostsContainer.insertAdjacentHTML('beforeend', data.html);
+
+                // Cập nhật URL của trang kế tiếp
+                nextPageUrl = data.next_page_url;
+                // Hiển thị lại nút "Xem Thêm" nếu còn trang
+                if (nextPageUrl != null) {
+                  loadMoreBtn.style.display = 'flex';
+                } else {
+                    document.querySelector('.no-more').style.display = 'block'; // Hiển thị thông báo hết dữ liệu
+                }
+
+                document.querySelector('.loading').style.display = 'none'; // Ẩn loader
+            })
+            .catch(error => {
+                console.log(error);
+                loadMoreBtn.style.display = 'flex'; // Hiển thị lại nút nếu có lỗi
+                document.querySelector('.loading').style.display = 'none';
+            });
+    });
+});
+</script>
 @endsection
