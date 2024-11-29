@@ -55,7 +55,7 @@ return [
     |
     */
 
-    'url' => env('APP_URL', 'https://cfn-crawler.cafesuanovel.com'),
+    'url' => env('APP_URL', 'https://cafesuanovel.one'),
 
     'asset_url' => env('ASSET_URL'),
 
